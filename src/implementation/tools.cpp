@@ -12,24 +12,24 @@ IntersectionResult::IntersectionResult(float fY, float fX)
 	this -> bHasIntersect = true;
 }
 
-void drawCeilAndFloor(sf::RenderWindow& window, float fHorizontalSurfaceH, float fHorizontalSurfaceStep, float fHorizontalSurfaceAlphaStep,
-	float fHorizont, sf::Color color)
+void drawCeilAndFloor(sf::RenderWindow& window, float fFloorAndCeilSectionWidth, float fFloorAndCeilAlphaStep, float fFloorAndCeilAlphaValue,
+	sf::Color color)
 {
 	float fFloorAlpha = 0;
-	for (float i = 0; i < fHorizontalSurfaceH; i += fHorizontalSurfaceStep, fFloorAlpha += fHorizontalSurfaceAlphaStep)
+	for (float i = 0; i < mWHHalf; i += fFloorAndCeilSectionWidth, fFloorAlpha += fFloorAndCeilAlphaStep)
 	{
-		sf::RectangleShape rectFloor(sf::Vector2f(mWW, fHorizontalSurfaceStep));
-		rectFloor.setPosition(0, fHorizont + i);
+		sf::RectangleShape rectFloor(sf::Vector2f(mWW, fFloorAndCeilSectionWidth));
+		rectFloor.setPosition(0, mWHHalf + i);
 		rectFloor.setFillColor(sf::Color(color.r, color.g, color.b, fFloorAlpha));
 
 		window.draw(rectFloor);
 	}
 
-	float fCeilAlpha = 200;
-	for (float i = 0; i < fHorizontalSurfaceH; i += fHorizontalSurfaceStep, fCeilAlpha -= fHorizontalSurfaceAlphaStep)
+	float fCeilAlpha = fFloorAndCeilAlphaValue;
+	for (float i = 0; i < mWHHalf; i += fFloorAndCeilSectionWidth, fCeilAlpha -= fFloorAndCeilAlphaStep)
 	{
-		sf::RectangleShape rectFloor(sf::Vector2f(mWW, fHorizontalSurfaceStep));
-		rectFloor.setPosition(0, fHorizont - mWH + i);
+		sf::RectangleShape rectFloor(sf::Vector2f(mWW, fFloorAndCeilSectionWidth));
+		rectFloor.setPosition(0, i);
 		rectFloor.setFillColor(sf::Color(color.r, color.g, color.b, fCeilAlpha));
 
 		window.draw(rectFloor);
@@ -50,7 +50,7 @@ void collisionDetection(sf::Vector2f& playerPos, std::vector<Ray>& collisionRays
 }
 
 void drawWalls(sf::RenderWindow& window, std::vector<Ray>& rays, float fAngle, float fFovHalf, float fRayStep,
-	float fDistToProjectionPlane, float fShadeIntensity, float fShadeMultiplier, float fHorizont, int iWallHCoeff, int iWallSliceW)
+	float fDistToProjectionPlane, float fShadeIntensity, float fShadeMultiplier, int iWallHCoeff, int iWallSliceW)
 {
 	float fFovAlpha = -fFovHalf;
 
@@ -65,7 +65,7 @@ void drawWalls(sf::RenderWindow& window, std::vector<Ray>& rays, float fAngle, f
 		
 		sf::RectangleShape slice(sf::Vector2f(iWallSliceW, fWallH));
 		slice.setFillColor(sf::Color(rays[i].color.r, rays[i].color.g, rays[i].color.b, iAlphaChannel));
-		slice.setPosition(i * iWallSliceW, fHorizont - fWallH / 2);
+		slice.setPosition(i * iWallSliceW, mWHHalf - fWallH / 2);
 		
 		window.draw(slice);
 	}
@@ -136,14 +136,14 @@ void createCircleShape(std::vector<Boundary>& boundaries, float fY, float fX, fl
 	});
 }
 
-void mouseControl(sf::RenderWindow& window, float& fAngle, float& fHorizont, float fDT, float fSensitivity)
+void mouseControl(sf::RenderWindow& window, float& fAngle, float fDT, float fSensitivity)
 {
-	float fDY = sf::Mouse::getPosition(window).y - mWH / 2;
-	float fDX = sf::Mouse::getPosition(window).x - mWW / 2;
+	float fDY = sf::Mouse::getPosition(window).y - mWHHalf;
+	float fDX = sf::Mouse::getPosition(window).x - mWWHalf;
 
 	fAngle += fDX * fSensitivity * fDT;
 	
-	sf::Mouse::setPosition(sf::Vector2i(mWW / 2, mWH / 2), window);
+	sf::Mouse::setPosition(sf::Vector2i(mWWHalf, mWHHalf), window);
 }
 
 void keyControl(sf::Vector2f& playerPos, float& fAngle, float fDT, float fPlayerRotateSpeed, float fPlayerSpeed)
@@ -238,7 +238,7 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(mWW, mWH), mTitle);
 	window.setMouseCursorVisible(false);
 
-	sf::Mouse::setPosition(sf::Vector2i(mWW / 2, mWH / 2), window);
+	sf::Mouse::setPosition(sf::Vector2i(mWWHalf, mWHHalf), window);
 
 	return init(window);
 }

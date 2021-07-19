@@ -51,11 +51,6 @@ int loop(sf::RenderWindow& window, std::map<std::string, float>& cfg)
 	float fFov = toRadians(cfg["FOV"]);
 	float fFovHalf = fFov / 2;
 	float fRayLength = cfg["rayLength"];
-	float fHorizont = mWH / 2;
-	float fHorizontalSurfaceH = mWH;
-	float fHorizontalSurfaceStep = 5;
-	float fHorizontalSurfaceAlphaValue = 200;
-	float fHorizontalSurfaceAlphaStep = fHorizontalSurfaceAlphaValue / (fHorizontalSurfaceH / fHorizontalSurfaceStep);
 	float fRayStep = fFov / cfg["projectionPlaneWidth"];
 	float fWallSliceWidth = mWW / cfg["projectionPlaneWidth"];
 	float fWallHeightCoeff = cfg["wallHeightCoeff"];
@@ -71,6 +66,9 @@ int loop(sf::RenderWindow& window, std::map<std::string, float>& cfg)
 	float fObjectsAngleOffset = 0;
 	float fObjectsRadius = cfg["objectsRadius"];
 	float fObjectsOrbitalRadius = cfg["objectsOrbitalRadius"];
+	float fFloorAndCeilSectionWidth = cfg["floorAndCeilSectionWidth"];
+	float fFloorAndCeilAlphaValue = cfg["floorAndCeilAlphaValue"];
+	float fFloorAndCeilAlphaStep = fFloorAndCeilAlphaValue / (mWHHalf / fFloorAndCeilSectionWidth);
 
 	sf::Vector2f mapCenterPos(cfg["mapWidth"] / 2, cfg["mapHeight"] / 2);
 	sf::Vector2f playerPos(mapCenterPos.x, 100);
@@ -168,7 +166,7 @@ int loop(sf::RenderWindow& window, std::map<std::string, float>& cfg)
 			Handling mouse and keyboard events.
 		*/
 		if (!bShowMouse)
-			mouseControl(window, fAngle, fHorizont, fDT, fSensitivity);
+			mouseControl(window, fAngle, fDT, fSensitivity);
 		keyControl(playerPos, fAngle, fDT, fPlayerRotateSpeed, fPlayerSpeed);
 
 		/*
@@ -178,14 +176,13 @@ int loop(sf::RenderWindow& window, std::map<std::string, float>& cfg)
 
 		window.clear();
 
-		drawCeilAndFloor(window, fHorizontalSurfaceH, fHorizontalSurfaceStep, fHorizontalSurfaceAlphaStep, fHorizont,
-			sf::Color(148, 56, 33));
+		drawCeilAndFloor(window, fFloorAndCeilSectionWidth, fFloorAndCeilAlphaStep, fFloorAndCeilAlphaValue, sf::Color(76, 47, 39));
 
 		/*
 			Drawing vertical slices based on the distance to the intersection of rays with boundaries.
 		*/
-		drawWalls(window, rays, fAngle, fFovHalf, fRayStep, fDistanceToProjectionPlane, fShadeIntensity, fShadeMultiplier, fHorizont,
-			fWallHeightCoeff, fWallSliceWidth);
+		drawWalls(window, rays, fAngle, fFovHalf, fRayStep, fDistanceToProjectionPlane, fShadeIntensity, fShadeMultiplier, fWallHeightCoeff,
+			fWallSliceWidth);
 
 		window.display();
 
@@ -209,7 +206,7 @@ int loop(sf::RenderWindow& window, std::map<std::string, float>& cfg)
 				bShowMouse = !bShowMouse;
 
 				window.setMouseCursorVisible(bShowMouse);
-				sf::Mouse::setPosition(sf::Vector2i(mWW / 2, mWH / 2), window);
+				sf::Mouse::setPosition(sf::Vector2i(mWWHalf, mWHHalf), window);
 				
 				break;
 		}
