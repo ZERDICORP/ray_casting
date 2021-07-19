@@ -1,6 +1,6 @@
 # Ray Casting
 
-<kbd><img src="https://github.com/ZERDICORP/ray_casting/blob/master/screenshots/s1.png?row=true" alt="screenshot" width="250" height="165"></kbd>
+<kbd><img src="https://github.com/ZERDICORP/ray_casting/blob/master/screenshots/s1.png?row=true" alt="screenshot" width="379" height="250"></kbd>
 
 ### Just 3 steps to get started:
   1) **Install [C++ SFML Library](https://www.sfml-dev.org/download.php).**
