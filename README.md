@@ -9,4 +9,4 @@
 
 ### Author's libraries used by this project:
 - [athm.h](https://github.com/ZERDICORP/athm-lib.git)
-- [file.h](https://github.com/ZERDICORP/file-lib.git)
+- [file.h](https://github.com/ZERDICORP/file-lib/tree/v1) (v1)
