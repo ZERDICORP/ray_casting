@@ -8,5 +8,5 @@
   3) **Run "run.bat".**
 
 ### Author's libraries used by this project:
-- [athm.h](https://github.com/ZERDICORP/athm-lib.git)
-- [file.h](https://github.com/ZERDICORP/file-lib/tree/v1) (v1)
+- [athm-lib](https://github.com/ZERDICORP/athm-lib.git)
+- [file-lib](https://github.com/ZERDICORP/file-lib/tree/v1) (v1)
