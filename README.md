@@ -5,8 +5,8 @@
 ## Launch guide
 
 ```console
-$ git clone https://github.com/ZERDICORP/ants_simulation.git
-$ cd ants_simulation
+$ git clone https://github.com/ZERDICORP/ray_casting".git
+$ cd ray_casting
 $ ./run
 ```
 
