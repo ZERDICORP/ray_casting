@@ -2,11 +2,24 @@
 
 <kbd><img src="https://github.com/ZERDICORP/ray_casting/blob/master/screenshots/s1.png?row=true" alt="screenshot" width="379" height="250"></kbd>
 
-### Just 3 steps to get started:
-  1) **Install [C++ SFML Library](https://www.sfml-dev.org/download.php).**
-  2) **In the "build.bat" file, specify your path to SFML.**
-  3) **Run "run.bat".**
+## Launch guide
 
-### Author's libraries used by this project:
-- [athm-lib](https://github.com/ZERDICORP/athm-lib/tree/v1) (v1)
-- [file-lib](https://github.com/ZERDICORP/file-lib/tree/v1) (v1)
+```console
+$ git clone https://github.com/ZERDICORP/ants_simulation.git
+$ cd ants_simulation
+$ ./run
+```
+
+## Dependencies
+```
+$ g++ --version
+g++ (GCC) 12.2.0
+```
+```
+$ wget --version 
+GNU Wget 1.21.3 built on linux-gnu.
+```
+```
+$ tar --version
+tar (GNU tar) 1.34
+```

@@ -1,0 +1,15 @@
+sfmlPath="SFML-2.5.1"
+
+if [[ ! -d $sfmlPath ]]
+then
+	wget -qO- https://www.sfml-dev.org/files/SFML-2.5.1-linux-gcc-64-bit.tar.gz | tar xvz
+fi
+
+includePath="${sfmlPath}/include"
+libPath="${sfmlPath}/lib"
+
+g++ src/implementation/*.cpp -o build/main -O3 -O2 -O1 -DSFML_STATIC -I $includePath -I "./src/headers" -L $libPath -lsfml-graphics -lsfml-window -lsfml-system -fconcepts
+
+cd build
+LD_LIBRARY_PATH="../${libPath}" ./main
+cd ..
